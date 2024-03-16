@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import sys
-import CodeF8, CodeF4, CodeVCC, CodeAF8
+import CodeF8, CodeF4, CodeVCC, CodeAF8, Code3OT
 
 def encontrar_contorno(img):
     # Paso 1: Cargar la imagen
@@ -80,6 +80,23 @@ print(cadena_af8_str)  # Imprimir la cadena AF8
 frecuencias_af8 = Counter(cadena_af8)
 print("Frecuencia de aparición: ", end='')
 for direccion, frecuencia in frecuencias_af8.items():
+    print(f"{direccion}:{frecuencia}", end=' ')
+
+print("\n\n------------------------ Código 3OT ------------------------")
+
+# Convertir la cadena de texto F4 a una lista de enteros para facilitar su manejo
+cadena_f4 = [int(digit) for digit in codigo_f4]
+
+# Convertir y obtener la cadena 3OT
+cadena_3ot = Code3OT.f4_to_3ot(cadena_f4)
+# Convertir a cadena
+cadena_3ot_str = ''.join(str(digito) for digito in cadena_3ot)
+print(cadena_3ot_str)  # Imprimir la cadena 3OT
+
+# Supongiendo que 'codigo_3ot' es tu vector de Freeman para el contorno de interés
+frecuencias_3ot = Counter(cadena_3ot)
+print("Frecuencia de aparición: ", end='')
+for direccion, frecuencia in frecuencias_3ot.items():
     print(f"{direccion}:{frecuencia}", end=' ')
 
 ############################## IMAGEN DE LOS CONTORNOS ####################################
