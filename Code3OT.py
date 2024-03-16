@@ -1,10 +1,3 @@
-f4_3ot = [
-    ["1", "*", "2", "*"],
-    ["*", "1", "*", "2"],
-    ["2", "*", "1", "*"],
-    ["*", "2", "*", "1"]
-]
-
 # Función para convertir de F4 a 3OT
 def f4_to_3ot(f4_sequence):
     _3ot_sequence = []

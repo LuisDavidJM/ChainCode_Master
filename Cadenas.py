@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import sys
-import CodeF8, CodeF4, CodeVCC, CodeAF8, Code3OT
+import CodeF8, CodeF4, CodeVCC, CodeAF8, Code3OT, CodeAAF8
 
 def encontrar_contorno(img):
     # Paso 1: Cargar la imagen
@@ -36,11 +36,12 @@ for contorno in contornos:
 cadena_f8_str = ''.join(str(digito) for digito in codigo_f8)
 print(cadena_f8_str)
 
-# Supongiendo que 'codigo_f8' es tu vector de Freeman para el contorno de interés
-frecuencias_f8 = Counter(codigo_f8)
+# Inicializa las frecuencias para todos los símbolos posibles de F8 con cero
+frecuencias_f8 = Counter({i: 0 for i in range(8)})
+frecuencias_f8.update(codigo_f8)
 print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias_f8.items():
-    print(f"{direccion}:{frecuencia}", end=' ')
+for direccion in range(8):
+    print(f"{direccion}:{frecuencias_f8[direccion]}", end=' ')
 
 print("\n\n------------------------ Código F4 ------------------------")
 
@@ -48,11 +49,15 @@ print("\n\n------------------------ Código F4 ------------------------")
 codigo_f4 = CodeF4.f8_a_f4(codigo_f8, CodeF4.f8_f4)
 print(codigo_f4)
 
-# Supongiendo que 'codigo_f4' es tu vector de Freeman para el contorno de interés
-frecuencias_f4 = Counter(codigo_f4)
+# Si cada símbolo es un carácter en la cadena, convierte la cadena en una lista de enteros
+codigo_f4 = [int(simbolo) for simbolo in codigo_f4]
+
+# Inicializa las frecuencias para todos los símbolos posibles de F4 con cero
+frecuencias_f4 = Counter({i: 0 for i in range(4)})
+frecuencias_f4.update(codigo_f4)
 print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias_f4.items():
-    print(f"{direccion}:{frecuencia}", end=' ')
+for direccion in range(4):
+    print(f"{direccion}:{frecuencias_f4[direccion]}", end=' ')
 
 print("\n\n------------------------ Código VCC ------------------------")
 
@@ -62,11 +67,15 @@ cadena_vcc = CodeVCC.f4_to_vcc(codigo_f4, CodeVCC.f4_vcc)
 cadena_vcc_str = ''.join(str(digito) for digito in cadena_vcc)
 print(cadena_vcc_str)  # Imprimir la cadena VCC
 
-# Supongiendo que 'codigo_vcc' es tu vector de Freeman para el contorno de interés
-frecuencias_vcc = Counter(cadena_vcc)
+# Si cada símbolo es un carácter en la cadena, convierte la cadena en una lista de enteros
+cadena_vcc = [int(simbolo) for simbolo in cadena_vcc]
+
+# Inicializa las frecuencias para todos los símbolos posibles de VCC con cero
+frecuencias_vcc = Counter({i: 0 for i in range(3)})
+frecuencias_vcc.update(cadena_vcc)
 print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias_vcc.items():
-    print(f"{direccion}:{frecuencia}", end=' ')
+for direccion in range(3):
+    print(f"{direccion}:{frecuencias_vcc[direccion]}", end=' ')
 
 print("\n\n------------------------ Código AF8 ------------------------")
 
@@ -76,37 +85,82 @@ cadena_af8 = CodeAF8.f8_to_af8(codigo_f8, CodeAF8.f8_af8)
 cadena_af8_str = ''.join(str(digito) for digito in cadena_af8)
 print(cadena_af8_str)  # Imprimir la cadena AF8
 
-# Supongiendo que 'codigo_af8' es tu vector de Freeman para el contorno de interés
-frecuencias_af8 = Counter(cadena_af8)
+# Si cada símbolo es un carácter en la cadena, convierte la cadena en una lista de enteros
+cadena_af8 = [int(simbolo) for simbolo in cadena_af8]
+
+# Inicializa las frecuencias para todos los símbolos posibles de AF8 con cero
+frecuencias_af8 = Counter({i: 0 for i in range(8)})
+frecuencias_af8.update(cadena_af8)
 print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias_af8.items():
-    print(f"{direccion}:{frecuencia}", end=' ')
+for direccion in range(8):
+    print(f"{direccion}:{frecuencias_af8[direccion]}", end=' ')
 
 print("\n\n------------------------ Código 3OT ------------------------")
 
-# Convertir la cadena de texto F4 a una lista de enteros para facilitar su manejo
-cadena_f4 = [int(digit) for digit in codigo_f4]
-
 # Convertir y obtener la cadena 3OT
-cadena_3ot = Code3OT.f4_to_3ot(cadena_f4)
+cadena_3ot = Code3OT.f4_to_3ot(codigo_f4)
 # Convertir a cadena
 cadena_3ot_str = ''.join(str(digito) for digito in cadena_3ot)
 print(cadena_3ot_str)  # Imprimir la cadena 3OT
 
-# Supongiendo que 'codigo_3ot' es tu vector de Freeman para el contorno de interés
-frecuencias_3ot = Counter(cadena_3ot)
-print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias_3ot.items():
-    print(f"{direccion}:{frecuencia}", end=' ')
+# Si cada símbolo es un carácter en la cadena, convierte la cadena en una lista de enteros
+cadena_3ot = [int(simbolo) for simbolo in cadena_3ot]
 
-############################## IMAGEN DE LOS CONTORNOS ####################################
+# Inicializa las frecuencias para todos los símbolos posibles de 3OT con cero
+frecuencias_3ot = Counter({i: 0 for i in range(3)})
+frecuencias_3ot.update(cadena_3ot)
+print("Frecuencia de aparición: ", end='')
+for direccion in range(3):
+    print(f"{direccion}:{frecuencias_3ot[direccion]}", end=' ')
+
+print("\n\n----------------------- Código AAF8 ------------------------")
+
+# Calcular la secuencia AAF8
+cadena_aaf8 = CodeAAF8.f8_to_aaf8(codigo_f8)
+# Convertir a cadena
+cadena_3ot_str = ''.join(str(digito) for digito in cadena_aaf8)
+print(cadena_3ot_str)
+
+# Inicializa las frecuencias para todos los símbolos posibles de AAF8 con cero
+frecuencias_aaf8 = Counter({i: 0 for i in range(9)})
+frecuencias_aaf8.update(cadena_aaf8)
+print("Frecuencia de aparición: ", end='')
+for direccion in range(9):
+    print(f"{direccion}:{frecuencias_aaf8[direccion]}", end=' ')
 
 # Forzar la descarga de la salida estándar
 sys.stdout.flush()
 
+############################## IMAGEN DE LOS CONTORNOS ####################################
+
 # Visualizar los contornos encontrados
 imagen_contornos = cv2.drawContours(np.zeros_like(imagen_grises), contornos, -1, (255, 255, 255), 1)
-#plt.xticks(range(0,10,1))
-#plt.yticks(range(0,10,1))
 plt.imshow(imagen_contornos, cmap='gray')
+
+####################### HISTOGRAMAS DE FRECUANCIAS DE APARICIÓN #############################
+
+# Inicializa una figura de matplotlib con subgráficos
+fig, axs = plt.subplots(2, 3, figsize=(13, 7))  # 2 filas, 3 columnas de histogramas
+
+# Diccionarios en una lista para iterar
+frecuencias = [frecuencias_f4, frecuencias_f8, frecuencias_af8, frecuencias_aaf8, frecuencias_vcc, frecuencias_3ot]
+titulos = ['F4', 'F8', 'AF8', 'AAF8', 'VCC', '3OT']
+
+# Llenar cada subgráfico con los datos de frecuencia
+for ax, freq, title in zip(axs.flat, frecuencias, titulos):
+    # Datos para el histograma
+    labels, values = zip(*sorted(freq.items()))
+    
+    # Crear el histograma
+    ax.bar(labels, values)
+    
+    # Establecer título y etiquetas
+    ax.set_title(f'Histograma de {title}')
+    ax.set_xlabel('Símbolo')
+    ax.set_ylabel('Frecuencia')
+    ax.set_xticks(range(len(labels)))  # Asegura que todos los símbolos tengan una etiqueta
+
+# Ajustar layout para evitar la superposición
+plt.tight_layout()
+
 plt.show()
