@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import sys
-import CodeF8, CodeF4, CodeVCC
+import CodeF8, CodeF4, CodeVCC, CodeAF8
 
 def encontrar_contorno(img):
     # Paso 1: Cargar la imagen
@@ -21,7 +21,7 @@ def encontrar_contorno(img):
 
 ############################## CÓDIGO PRINCIPAL ####################################
 
-img = 'Perro-128.png'
+img = 'Perro-64.png'
 contornos, imagen_grises = encontrar_contorno(img)
 
 punto_inicio = contornos[0][0]  # Accede al primer punto
@@ -37,9 +37,9 @@ cadena_f8_str = ''.join(str(digito) for digito in codigo_f8)
 print(cadena_f8_str)
 
 # Supongiendo que 'codigo_f8' es tu vector de Freeman para el contorno de interés
-frecuencias = Counter(codigo_f8)
+frecuencias_f8 = Counter(codigo_f8)
 print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias.items():
+for direccion, frecuencia in frecuencias_f8.items():
     print(f"{direccion}:{frecuencia}", end=' ')
 
 print("\n\n------------------------ Código F4 ------------------------")
@@ -49,9 +49,9 @@ codigo_f4 = CodeF4.f8_a_f4(codigo_f8, CodeF4.f8_f4)
 print(codigo_f4)
 
 # Supongiendo que 'codigo_f4' es tu vector de Freeman para el contorno de interés
-frecuencias = Counter(codigo_f4)
+frecuencias_f4 = Counter(codigo_f4)
 print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias.items():
+for direccion, frecuencia in frecuencias_f4.items():
     print(f"{direccion}:{frecuencia}", end=' ')
 
 print("\n\n------------------------ Código VCC ------------------------")
@@ -63,9 +63,23 @@ cadena_vcc_str = ''.join(str(digito) for digito in cadena_vcc)
 print(cadena_vcc_str)  # Imprimir la cadena VCC
 
 # Supongiendo que 'codigo_vcc' es tu vector de Freeman para el contorno de interés
-frecuencias = Counter(cadena_vcc)
+frecuencias_vcc = Counter(cadena_vcc)
 print("Frecuencia de aparición: ", end='')
-for direccion, frecuencia in frecuencias.items():
+for direccion, frecuencia in frecuencias_vcc.items():
+    print(f"{direccion}:{frecuencia}", end=' ')
+
+print("\n\n------------------------ Código AF8 ------------------------")
+
+# Convertir y obtener la cadena AF8
+cadena_af8 = CodeAF8.f8_to_af8(codigo_f8, CodeAF8.f8_af8)
+# Convertir a cadena
+cadena_af8_str = ''.join(str(digito) for digito in cadena_af8)
+print(cadena_af8_str)  # Imprimir la cadena AF8
+
+# Supongiendo que 'codigo_af8' es tu vector de Freeman para el contorno de interés
+frecuencias_af8 = Counter(cadena_af8)
+print("Frecuencia de aparición: ", end='')
+for direccion, frecuencia in frecuencias_af8.items():
     print(f"{direccion}:{frecuencia}", end=' ')
 
 ############################## IMAGEN DE LOS CONTORNOS ####################################
