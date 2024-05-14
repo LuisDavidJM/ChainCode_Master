@@ -15,14 +15,14 @@ def encontrar_contorno(img):
 
     # Paso 3: Encontrar contornos
     contornos, _ = cv2.findContours(imagen_binaria, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-    contornos = [contornos[1]]
+    contornos_concatenados = [np.concatenate(contornos[1:])]
 
-    return contornos, imagen_grises
+    return contornos_concatenados, contornos, imagen_grises
 
 ############################## CÓDIGO PRINCIPAL ####################################
 
-img = 'Perro-64.png'
-contornos, imagen_grises = encontrar_contorno(img)
+img = 'PNG/Mujer.png'
+contornos, contornos_img, imagen_grises = encontrar_contorno(img)
 
 punto_inicio = contornos[0][0]  # Accede al primer punto
 print(f"Coordenada inicial: ({punto_inicio[0][0]}, {punto_inicio[0][1]})")
@@ -115,7 +115,10 @@ for direccion in range(3):
 
 print("\n\n----------------------- Código AAF8 ------------------------")
 
+c_f8 = [0,0,0,2,2,1,2,3,3,4,4,4,5,6,0,0,7,5,4,6,7]
+
 # Calcular la secuencia AAF8
+#cadena_aaf8 = CodeAAF8.f8_to_aaf8(c_f8)
 cadena_aaf8 = CodeAAF8.f8_to_aaf8(codigo_f8)
 # Convertir a cadena
 cadena_3ot_str = ''.join(str(digito) for digito in cadena_aaf8)
@@ -134,7 +137,7 @@ sys.stdout.flush()
 ############################## IMAGEN DE LOS CONTORNOS ####################################
 
 # Visualizar los contornos encontrados
-imagen_contornos = cv2.drawContours(np.zeros_like(imagen_grises), contornos, -1, (255, 255, 255), 1)
+imagen_contornos = cv2.drawContours(np.zeros_like(imagen_grises), contornos_img, -1, (255, 255, 255), 1)
 plt.imshow(imagen_contornos, cmap='gray')
 
 ####################### HISTOGRAMAS DE FRECUANCIAS DE APARICIÓN #############################
@@ -158,7 +161,7 @@ for ax, freq, title in zip(axs.flat, frecuencias, titulos):
     ax.set_title(f'Histograma de {title}')
     ax.set_xlabel('Símbolo')
     ax.set_ylabel('Frecuencia')
-    ax.set_xticks(range(len(labels)))  # Asegura que todos los símbolos tengan una etiqueta
+    ax.set_xticks(range(len(labels)))
 
 # Ajustar layout para evitar la superposición
 plt.tight_layout()

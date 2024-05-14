@@ -19,8 +19,7 @@ def f4_to_3ot(f4_sequence):
                 _3ot_sequence.append("2")
             else:
                 # Este caso no debería ocurrir con una secuencia F4 válida
-                print(f"Error inesperado con i={i}, k={k}: {f4_sequence[i]}->{f4_sequence[next_i]} con k={f4_sequence[k]}")
-                _3ot_sequence.append("*")
+                pass
 
     return _3ot_sequence
 
