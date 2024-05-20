@@ -16,8 +16,8 @@ def f8_a_f4(f8_sequence, trans_matrix):
     for current_f8 in f8_sequence:
         # Obtener el valor de transición basado en el vector anterior y actual F8
         transition_value = trans_matrix[previous_f8][current_f8]
-        if transition_value not in [".", "*"]:  # Si no es un punto o un asterisco
-            # Añadir el valor de transición a la secuencia F4 (considerando múltiples movimientos si es necesario)
+        if transition_value not in [".", "*"]:
+            # Añadir el valor de transición a la secuencia F4 
             f4_sequence += transition_value
         previous_f8 = current_f8  # Actualizar la dirección anterior con la actual para la próxima iteración
     return f4_sequence

@@ -28,7 +28,7 @@ def calcular_direccion(delta_x, delta_y):
         return 7  # Diagonal superior derecha
 
 def calcular_f8(contorno):
-    """Calcula el código de cadena de Freeman de 8 direcciones para un contorno dado."""
+    # Calcula el código de cadena de Freeman de 8 direcciones
     cadena_f8 = []
     
     # Asegura que el contorno sea cerrado conectando el último punto con el primero

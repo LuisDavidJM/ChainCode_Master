@@ -23,7 +23,7 @@ def f4_to_3ot(f4_sequence):
 
     return _3ot_sequence
 
-# Función para encontrar el índice k como se describe en la imagen
+# Función para encontrar el índice k
 def find_k(f4_sequence, i):
     # Encontrar k tal que C_F4(k) != C_F4(k+1) == C_F4(k+2) ... == C_F4(i)
     k = (i - 1) % len(f4_sequence)
