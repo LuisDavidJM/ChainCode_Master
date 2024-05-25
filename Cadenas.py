@@ -1,8 +1,6 @@
 from collections import Counter
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-import sys
 import CodeF8, CodeF4, CodeVCC, CodeAF8, Code3OT, CodeAAF8
 
 def encontrar_contorno(img):
